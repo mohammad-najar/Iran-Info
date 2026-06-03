@@ -1,0 +1,345 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #030712;
+}
+
+.star-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star-position {
+  position: absolute;
+  will-change: transform;
+}
+
+.star-position-far {
+  filter: blur(0.25px);
+}
+
+.star-position-middle {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.18));
+}
+
+.star-position-near {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.32));
+}
+
+.star {
+  display: block;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+  will-change: transform, opacity;
+}
+
+.chart-scroll {
+  scrollbar-width: none;
+}
+
+.chart-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.map-world-layer,
+.map-iran-focus-layer {
+  transition: opacity 420ms ease, transform 520ms ease;
+  transform-origin: center;
+}
+
+.map-world-layer-hidden {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+.map-country {
+  fill: rgba(34, 197, 94, 0.12);
+  stroke: rgba(134, 239, 172, 0.4);
+  stroke-width: 0.65;
+  transition: fill 180ms ease, stroke 180ms ease;
+}
+
+.map-country:hover {
+  fill: rgba(34, 197, 94, 0.28);
+  stroke: rgba(187, 247, 208, 0.86);
+}
+
+.map-country-iran {
+  cursor: pointer;
+  fill: rgba(127, 29, 29, 0.9);
+  stroke: rgba(248, 113, 113, 0.98);
+  stroke-width: 1.5;
+}
+
+.map-country-iran:hover {
+  fill: rgba(153, 27, 27, 0.98);
+  stroke: rgba(254, 202, 202, 1);
+}
+
+.map-iran-overview-glow {
+  fill: none;
+  stroke: rgba(248, 113, 113, 0.4);
+  stroke-width: 6;
+}
+
+.map-iran-focus-layer {
+  opacity: 0;
+  transform: scale(0.94);
+  pointer-events: none;
+}
+
+.map-iran-focus-layer-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.map-iran-focus-country {
+  fill: #1b090e;
+  stroke: #991b1b;
+  stroke-width: 2.4;
+}
+
+.map-impact-dot-pulse {
+  fill: none;
+  stroke: rgba(248, 113, 113, 0.65);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-impact-dot-pulse 2.2s infinite ease-out;
+}
+
+.map-impact-message {
+  opacity: 0;
+  animation: map-impact-message 8.6s infinite ease-in-out;
+}
+
+.offline-word {
+  display: inline-block;
+  animation: offline-word-dim 7s infinite ease-in-out;
+}
+
+@keyframes offline-word-dim {
+  0%,
+  30% {
+    color: white;
+    opacity: 1;
+  }
+
+  40%,
+  88% {
+    color: rgba(156, 163, 175, 0.72);
+    opacity: 0.76;
+  }
+
+  100% {
+    color: white;
+    opacity: 1;
+  }
+}
+
+@keyframes map-impact-message {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  16%,
+  58% {
+    opacity: 0.88;
+    transform: translateY(0);
+  }
+}
+
+@keyframes map-impact-dot-pulse {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.45);
+  }
+
+  78%,
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+.crack-word {
+  position: relative;
+  display: inline-block;
+  color: white;
+  animation: crack-quiver 7s infinite linear;
+}
+
+.crack-word-placeholder {
+  visibility: hidden;
+}
+
+.crack-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: white;
+  will-change: clip-path, transform;
+}
+
+.crack-layer-left {
+  animation: crack-left 7s infinite linear;
+}
+
+.crack-layer-middle {
+  animation: crack-middle 7s infinite linear;
+}
+
+.crack-layer-right {
+  animation: crack-right 7s infinite linear;
+}
+
+.crack-line {
+  position: absolute;
+  top: 52%;
+  left: 2%;
+  width: 96%;
+  height: 2px;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.2);
+  clip-path: polygon(0 40%, 9% 15%, 18% 72%, 28% 28%, 39% 85%, 49% 8%, 60% 68%, 71% 22%, 82% 92%, 91% 38%, 100% 62%, 100% 100%, 0 100%);
+  transform: rotate(-1deg);
+  animation: crack-line-show 7s infinite linear;
+}
+
+@keyframes crack-left {
+  0%,
+  43%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translate(0);
+  }
+
+  46%,
+  88% {
+    clip-path: polygon(0 0, 57% 0, 48% 9%, 55% 20%, 45% 32%, 53% 44%, 43% 56%, 51% 68%, 41% 80%, 49% 91%, 43% 100%, 0 100%);
+    transform: translate(-0.9%, -0.35%);
+  }
+}
+
+@keyframes crack-middle {
+  0%,
+  43%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translate(0);
+  }
+
+  46%,
+  88% {
+    clip-path: polygon(57% 0, 83% 0, 74% 9%, 81% 20%, 71% 32%, 79% 44%, 69% 56%, 77% 68%, 67% 80%, 75% 91%, 69% 100%, 43% 100%, 49% 91%, 41% 80%, 51% 68%, 43% 56%, 53% 44%, 45% 32%, 55% 20%, 48% 9%);
+    transform: translate(0.15%, 0.45%);
+  }
+}
+
+@keyframes crack-right {
+  0%,
+  43%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translate(0);
+  }
+
+  46%,
+  88% {
+    clip-path: polygon(83% 0, 100% 0, 100% 100%, 69% 100%, 75% 91%, 67% 80%, 77% 68%, 69% 56%, 79% 44%, 71% 32%, 81% 20%, 74% 9%);
+    transform: translate(1%, -0.3%);
+  }
+}
+
+@keyframes crack-line-show {
+  0%,
+  43%,
+  90%,
+  100% {
+    opacity: 0;
+  }
+
+  46%,
+  88% {
+    opacity: 1;
+  }
+}
+
+@keyframes crack-quiver {
+  0%,
+  38%,
+  46%,
+  100% {
+    transform: translate(0);
+  }
+
+  39% {
+    transform: translateX(-1px);
+  }
+
+  40% {
+    transform: translateX(1px);
+  }
+
+  41% {
+    transform: translateX(-2px);
+  }
+
+  42% {
+    transform: translateX(2px);
+  }
+
+  43% {
+    transform: translateX(-2px);
+  }
+
+  44% {
+    transform: translateX(2px);
+  }
+
+  45% {
+    transform: translateX(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crack-word,
+  .crack-layer,
+  .crack-line,
+  .offline-word {
+    animation: none;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+}
